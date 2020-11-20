@@ -271,8 +271,8 @@ export default {
       this._checkSubmitSuccess(
         this.onSubmit({
           author: 'me',
-          type: 'emoji',
-          data: {emoji}
+          type: 'text',
+          data: {text: emoji}
         })
       )
     },

@@ -44,7 +44,6 @@
           </slot>
         </template>
       </TextMessage>
-      <EmojiMessage v-else-if="message.type === 'emoji'" :data="message.data" />
       <FileMessage
         v-else-if="message.type === 'file'"
         :data="message.data"
@@ -65,7 +64,6 @@
 <script>
 import TextMessage from './messages/TextMessage.vue'
 import FileMessage from './messages/FileMessage.vue'
-import EmojiMessage from './messages/EmojiMessage.vue'
 import TypingMessage from './messages/TypingMessage.vue'
 import SystemMessage from './messages/SystemMessage.vue'
 import chatIcon from './assets/chat-icon.svg'
@@ -74,7 +72,6 @@ export default {
   components: {
     TextMessage,
     FileMessage,
-    EmojiMessage,
     TypingMessage,
     SystemMessage
   },
