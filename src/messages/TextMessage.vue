@@ -49,6 +49,8 @@ import IconCross from './../components/icons/IconCross.vue'
 import escapeGoat from 'escape-goat'
 import Autolinker from 'autolinker'
 import store from '../store/'
+import EmojiConvertor from 'emoji-js'
+import AsciiEmojisMapper from '../AsciiEmojisMapper'
 
 const fmt = require('msgdown')
 
@@ -80,9 +82,16 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      emojiConvertor: new EmojiConvertor()
+    }
+  },
   computed: {
     messageText() {
-      const escaped = escapeGoat.escape(this.message.data.text)
+      const asciiConverted = AsciiEmojisMapper(this.message.data.text)
+      const unicodeConverted = this.emojiConvertor.replace_colons(asciiConverted)
+      const escaped = escapeGoat.escape(unicodeConverted)
 
       return Autolinker.link(this.messageStyling ? fmt(escaped) : escaped, {
         className: 'chatLink',
@@ -96,6 +105,11 @@ export default {
       return (store.state.editMessage && store.state.editMessage.id) === this.message.id
     },
     ...mapState(['showDeletion', 'showEdition'])
+  },
+  mounted() {
+    this.emojiConvertor.init_env()
+    this.emojiConvertor.replace_mode = 'unified'
+    this.emojiConvertor.allow_native = true
   },
   methods: {
     edit() {
