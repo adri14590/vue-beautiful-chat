@@ -91,7 +91,6 @@ export default {
     messageText() {
       const asciiConverted = AsciiEmojisMapper(this.message.data.text)
       const unicodeConverted = this.emojiConvertor.replace_colons(asciiConverted)
-      console.log('textMessage', unicodeConverted)
       const escaped = escapeGoat.escape(unicodeConverted)
 
       return Autolinker.link(this.messageStyling ? fmt(escaped) : escaped, {
