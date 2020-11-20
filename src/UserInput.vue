@@ -268,13 +268,7 @@ export default {
       }
     },
     _handleEmojiPicked(emoji) {
-      this._checkSubmitSuccess(
-        this.onSubmit({
-          author: 'me',
-          type: 'text',
-          data: {text: emoji}
-        })
-      )
+      this.$refs.userInput.textContent += emoji
     },
     _handleFileSubmit(file) {
       this.file = file
